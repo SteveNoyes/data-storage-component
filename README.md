@@ -18,9 +18,9 @@ Build out data storage component to look as close to the design documents as pos
 
 ### Screenshot
 
-![](./screenshot.jpg)
+![Mobile](./assets/images/mobile.png)
 
-![](./screenshot.jpg)
+![Desktop](./assets/images/desktop.png)
 
 ### Links
 
@@ -31,26 +31,32 @@ Build out data storage component to look as close to the design documents as pos
 
 ### Built with
 
-- Semantic HTML5 markup
-- CSS custom properties
-- Flexbox
-- CSS Grid
 - Mobile-first workflow
+- Flexbox
 
 ### Highlight
 
 ```html
-<h1></h1>
+<!-- Remainder Overlay Desktop -->
+<div class="desktop-remainder-wrapper">
+  <p class="hundreds">1</p>
+  <p class="tens">8</p>
+  <p class="ones">5</p>
+  <p class="units-left">GB LEFT</p>
+  <div class="triangle"></div>
+</div>
 ```
 ```css
-. {
-
-}
-```
-```js
-const = () => {
-  console.log('')
-}
+  .triangle {
+    width: 0;
+    height: 0;
+    border-left: 15px solid transparent;
+    border-right: 0px solid transparent;
+    border-top: 15px solid var(--white);
+    position: absolute;
+    bottom: -15px;
+    right: -1px;
+  }
 ```
 
 ### Useful resources
