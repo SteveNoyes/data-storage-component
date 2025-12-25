@@ -1,0 +1,102 @@
+/* Reset CSS */
+/* 
+  http://meyerweb.com/eric/tools/css/reset/ 
+  v2.0 | 20110126
+  License: none (public domain)
+*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+img {
+  max-width: 100%;
+  height: auto;
+  vertical-align: middle;
+  font-style: italic;
+  background-repeat: no-repeat;
+  background-size: cover;
+  shape-margin: 1rem;
+}
+
+@font-face {
+  font-family: 'Raleway Regular';
+  src: url('../fonts/Raleway-Regular.woff2') format('woff2'),
+      url('../fonts/Raleway-Regular.woff') format('woff'),
+      url('../fonts/Raleway-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Raleway Bold';
+  src: url('../fonts/Raleway-Bold.woff2') format('woff2'),
+      url('../fonts/Raleway-Bold.woff') format('woff'),
+      url('../fonts/Raleway-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* Neutral */
+  --blue-200: hsl(243, 100%, 93%);
+  --blue-850: hsl(228, 56%, 26%);
+  --blue-950: hsl(229, 57%, 11%);
+  --grayish-blue: hsl(229, 7%, 55%);
+  --white: #ffffff;
+  --black: #000000;
+  /* Gradient */
+  /* hsl(6, 100%, 80%) to hsl(335, 100%, 65%) */
+  --main-gradient: linear-gradient(to right, hsl(6, 100%, 80%), hsl(335, 100%, 65%));
+}
+
+/* General */
+
+body {
+  font-size: 14px;
+}
+
+
+/* Layout */
+/* Mobile: 375px - Desktop: 1440px */
+/* These are just the design sizes. Ensure content is responsive and meet WCAG requirements by testing the full range of screen sizes from 320px to large screens. */
