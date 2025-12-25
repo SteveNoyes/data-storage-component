@@ -77,6 +77,10 @@ img {
   font-display: swap;
 }
 
+/* Layout Notes */
+/* Mobile: 375px - Desktop: 1440px */
+/* These are just the design sizes. Ensure content is responsive and meet WCAG requirements by testing the full range of screen sizes from 320px to large screens. */
+
 :root {
   /* Neutral */
   --blue-200: hsl(243, 100%, 93%);
@@ -86,7 +90,6 @@ img {
   --white: #ffffff;
   --black: #000000;
   /* Gradient */
-  /* hsl(6, 100%, 80%) to hsl(335, 100%, 65%) */
   --main-gradient: linear-gradient(to right, hsl(6, 100%, 80%), hsl(335, 100%, 65%));
 }
 
@@ -94,9 +97,139 @@ img {
 
 body {
   font-size: 14px;
+  color: var(--white);
+  font-family: 'Raleway Regular';
 }
 
+main {
+  background-image: url('../images/bg-mobile.png');
+  height: 100vh;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-/* Layout */
-/* Mobile: 375px - Desktop: 1440px */
-/* These are just the design sizes. Ensure content is responsive and meet WCAG requirements by testing the full range of screen sizes from 320px to large screens. */
+.data-storage-wrapper {
+  width: 85%;
+}
+
+.fylo-logo-and-icons-wrapper {
+  border-radius: 10px 90px 10px 10px;
+  background-color: var(--blue-850);
+}
+
+.fylo-logo-and-icons-wrapper .fylo-logo {
+  padding: 35px 0 20px 35px;
+}
+
+.icon-wrapper {
+  display: flex;
+  padding: 10px 0 35px 35px;
+}
+
+.icon-wrapper .icon {
+  padding: 10px;
+  height: 20px;
+  width: 28px;
+  background-color: var(--blue-950);
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 10px;
+}
+
+.data-usage-wrapper {
+  margin-top: 20px;
+  background-color: var(--blue-850);
+  border-radius: 10px;
+  padding: 10px;
+  text-align: center;
+}
+
+.usage-sentence {
+  padding: 20px 0 20px;
+}
+
+.usage-sentence span {
+  font-family: 'Raleway Bold';
+}
+
+.slide-bar-wrapper {
+  margin: 0 10px 10px 10px;
+  padding: 0 10px 10px 10px;
+}
+
+.input-wrapper {
+  height: 19px;
+  margin: 0 auto;
+  border-radius: 10px;
+  background-color: var(--blue-950);
+  margin-bottom: 15px;
+}
+
+.slider {
+  -webkit-appearance: none;
+  width: 81.5%;
+  height: 15px;
+  margin-right: 18.5%;
+  background: #d3d3d3;
+  background: var(--main-gradient);
+  border-radius: 10px;
+  outline: none;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--white);
+  cursor: default;
+}
+
+.slider::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--white);
+  cursor: default;
+}
+
+.data-range-wrapper {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 25px;
+}
+
+.remainder-wrapper {
+  border: 1px solid white;
+  width: 50%;
+  margin: 0 auto;
+  margin-top: -30px;
+  text-align: center;
+  border-radius: 10px;
+  padding: 15px;
+  background-color: var(--white);
+  color: var(--blue-950);
+  font-family: 'Raleway Bold';
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.remainder-wrapper p {
+  font-size: 38px;
+}
+
+.remainder-wrapper .units-left {
+  font-size: 12px;
+  display: inline-block;
+  padding-left: 5px;
+  color: var(--grayish-blue);
+}

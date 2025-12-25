@@ -8,11 +8,50 @@
   <link rel="stylesheet" href="./assets/css/style.css">
 </head>
 <body>
-  <!-- 
-    You've used 815 GB of your storage
-    185 GB Left
-    0 GB
-    1000 GB 
-  -->
+  <main>
+    <!-- Wrapper Around Both Elements -->
+    <div class="data-storage-wrapper">
+      <!-- Interact Element -->
+      <div class="fylo-logo-and-icons-wrapper">
+        <img class="fylo-logo" src="./assets/images/logo.svg" alt="Fylo Logo">
+        <div class="icon-wrapper">
+          <div class="icon">
+            <img src="./assets/images/icon-document.svg" alt="Document Icon">
+          </div>
+          <div class="icon">
+            <img src="./assets/images/icon-folder.svg" alt="Folder Icon">
+          </div>
+          <div class="icon">
+            <img src="./assets/images/icon-upload.svg" alt="Upload Icon">
+          </div>
+        </div>
+      </div>
+      <!-- Interact Element End -->
+      <!-- Display Element -->
+      <div class="data-usage-wrapper">
+        <p class="usage-sentence">You've used <span>815 GB</span> of your storage</p>
+        <!-- slide bar -->
+        <div class="slide-bar-wrapper">
+          <div class="input-wrapper">
+            <input type="range" min="1" max="100" value="99" class="slider" id="myRange" disabled>
+          </div>
+          <div class="data-range-wrapper">
+            <p>0 GB</p>
+            <p>1000 GB</p>
+          </div>
+        </div>
+      </div>
+      <!-- Display Element End -->
+      <!-- Remainder Overlay -->
+      <div class="remainder-wrapper">
+        <p class="hundreds">1</p>
+        <p class="tens">8</p>
+        <p class="ones">5</p>
+        <p class="units-left">GB LEFT</p>
+      </div>
+      <!-- Remainder Overlay End -->
+    </div>
+    <!-- Wrapper Around Both Elements End -->
+  </main>
 </body>
 </html>
