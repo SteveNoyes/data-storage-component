@@ -3,68 +3,809 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
-  <title>Data Storage Component</title>
-  <link rel="stylesheet" href="./assets/css/style.css">
+  <title>Sales Dashboard</title>
+  <link rel="apple-touch-icon" sizes="180x180" href="../../assets/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../../assets/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../../assets/favicon/favicon-16x16.png">
+  <link rel="manifest" href="../../assets/favicon/site.webmanifest">
+  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/charts.css/dist/charts.min.css"> -->
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <style>
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f5f3f0;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .charts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+
+    /* layout for top KPI cards */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+
+    .kpi-card {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      text-align: center;
+    }
+
+    .kpi-title {
+      font-size: 1.15em;
+      color: #666;
+      margin-bottom: 8px;
+    }
+
+    .kpi-value {
+      font-size: 2.5em;
+      font-weight: 700;
+      color: #1a1a1a;
+    }
+
+    .gauge-card .kpi-value {
+      margin-top: 8px;
+    }
+
+    .kpi-card canvas {
+      width: 100%;
+      height: 120px;
+      margin: 0 auto;
+    }
+
+    .chart-card {
+      background: white;
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border-left: 4px solid #C9A961;
+    }
+
+    .chart-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+    }
+
+    .chart-title {
+      font-size: 1.5em;
+      margin-bottom: 20px;
+      color: #1a1a1a;
+      font-weight: 600;
+      border-bottom: 3px solid #C9A961;
+      padding-bottom: 10px;
+    }
+
+    .chart-description {
+      font-size: 0.95em;
+      color: #666;
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+
+    /* Chart.css customization */
+    .simple.column {
+      height: 200px;
+    }
+
+    .simple.bar {
+      height: 250px;
+    }
+
+    .simple.line {
+      height: 200px;
+    }
+
+    .simple.area {
+      height: 200px;
+    }
+
+    /* Chart data styling */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th {
+      background: #f8f9fa;
+      color: #2c2c2c;
+      padding: 12px;
+      text-align: left;
+      font-weight: 600;
+      border-bottom: 2px solid #C9A961;
+    }
+
+    td {
+      padding: 12px;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    /* tr:hover {
+      background: #f8f9fa;
+    } */
+
+    /* Medical specific colors */
+    .chart-card.vitals {
+      border-top: 5px solid #8B6F6F;
+    }
+
+    .chart-card.vitals .chart-title {
+      border-bottom-color: #8B6F6F;
+    }
+
+    .chart-card.treatment {
+      border-top: 5px solid #5B7C99;
+    }
+
+    .chart-card.treatment .chart-title {
+      border-bottom-color: #5B7C99;
+    }
+
+    .chart-card.medication {
+      border-top: 5px solid #6B8E7F;
+    }
+
+    .chart-card.medication .chart-title {
+      border-bottom-color: #6B8E7F;
+    }
+
+    .chart-card.demographics {
+      border-top: 5px solid #A68472;
+    }
+
+    .chart-card.demographics .chart-title {
+      border-bottom-color: #A68472;
+    }
+
+    .chart-card.immunization {
+      border-top: 5px solid #7B6B8E;
+    }
+
+    .chart-card.immunization .chart-title {
+      border-bottom-color: #7B6B8E;
+    }
+
+    .chart-card.lab-results {
+      border-top: 5px solid #6B8E8E;
+    }
+
+    .chart-card.lab-results .chart-title {
+      border-bottom-color: #6B8E8E;
+    }
+
+    /* Legend styling */
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid #e0e0e0;
+      font-size: 0.9em;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .legend-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+
+    /* Responsive design */
+    @media (max-width: 768px) {
+      .charts-grid {
+        display: block;
+      }
+
+      .charts-grid tr {
+        display: block;
+        margin-bottom: 30px;
+      }
+
+      .charts-grid td {
+        display: block;
+        width: 100% !important;
+        padding: 0;
+        margin-bottom: 15px;
+      }
+
+      .charts-grid td:last-child {
+        margin-bottom: 0;
+      }
+
+      header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    header h1 {
+      font-size: 2.2em;
+      color: #333;
+    }
+
+    header p {
+      font-size: 1em;
+      color: #555;
+      max-width: 800px;
+      margin: 0 auto;
+      line-height: 1.4;
+    }
+
+      .chart-card {
+        padding: 20px;
+      }
+
+      table {
+        font-size: 0.9em;
+      }
+
+      th, td {
+        padding: 8px;
+      }
+    }
+
+  </style>
+  <style>
+    .back-button {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      padding: 12px 18px;
+      font-size: 16px;
+      font-weight: 500;
+      color: white;
+      background-color: #222;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      transition: all 0.25s ease;
+      z-index: 999;
+    }
+    .back-button:hover {
+      background-color: #444;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 14px rgba(0,0,0,0.3);
+    }
+    @media (max-width: 768px) {
+      .back-button {
+        bottom: 20px;
+        right: 20px;
+        padding: 10px 16px;
+      }
+    }
+  </style>
 </head>
 <body>
-  <main>
-    <!-- Wrapper Around Both Elements -->
-    <div class="data-storage-wrapper">
-      <!-- Interact Element -->
-      <div class="fylo-logo-and-icons-wrapper">
-        <img class="fylo-logo" src="./assets/images/logo.svg" alt="Fylo Logo">
-        <div class="icon-wrapper">
-          <div class="icon">
-            <img src="./assets/images/icon-document.svg" alt="Document Icon">
+  <table class="container" cellpadding="0" cellspacing="0" border="0">
+    <tr style="background-color: #f8f9fa;">
+      <td style="border-radius: 10px;">
+
+        <!-- Header -->
+        <header>
+          <h1 style="margin: 15px 0 30px 0;">Sales & Market Access Performance Dashboard</h1>
+          <p style="margin: 10px 0;">
+            This interactive dashboard provides a real-time overview of revenue performance, 
+            enrollment growth, therapeutic coverage, and distribution channel effectiveness. 
+            Designed for data-driven teams, it combines financial metrics with healthcare 
+            market access insights to deliver a comprehensive operational snapshot.
+          </p>
+          <p style="margin-bottom: 20px;">
+            All charts are dynamically rendered using live mock API data and updated instantly 
+            upon refresh. Each refresh also triggers an automated email summary containing 
+            visual exports of the charts and a structured transaction report—streamlining 
+            reporting workflows for leadership and stakeholders.
+          </p>
+        </header>
+
+        <!-- Dashboard layout -->
+        
+        <div class="kpi-grid">
+          <div class="kpi-card">
+            <div class="kpi-title">Total Revenue</div>
+            <div class="kpi-value" id="totalRevenue">$18.5k</div>
           </div>
-          <div class="icon">
-            <img src="./assets/images/icon-folder.svg" alt="Folder Icon">
+          <div class="kpi-card">
+            <div class="kpi-title">Forecast</div>
+            <div class="kpi-value" id="forecastAmount">$79.1k</div>
           </div>
-          <div class="icon">
-            <img src="./assets/images/icon-upload.svg" alt="Upload Icon">
-          </div>
-        </div>
-      </div>
-      <!-- Interact Element End -->
-      <!-- Display Element -->
-      <div class="data-usage-wrapper">
-        <!-- Remainder Overlay Desktop -->
-        <div class="desktop-remainder-wrapper">
-          <p class="hundreds">1</p>
-          <p class="tens">8</p>
-          <p class="ones">5</p>
-          <p class="units-left">GB LEFT</p>
-          <div class="triangle"></div>
-        </div>
-        <!-- Remainder Overlay Desktop End -->
-        <h1 class="usage-sentence">You've used <span>815 GB</span> of your storage</h1>
-        <!-- slide bar -->
-        <div class="slide-bar-wrapper">
-          <div class="input-wrapper">
-            <form>
-              <label for="myRange">
-                <input type="range" min="1" max="100" value="99" class="slider" id="myRange" disabled>
-              </label>
-            </form>
-          </div>
-          <div class="data-range-wrapper">
-            <p>0 GB</p>
-            <p>1000 GB</p>
+          <div class="kpi-card gauge-card" style="display: none;">
+            <div class="kpi-title">Forecasted vs Actual</div>
+            <canvas id="gaugeChart"></canvas>
+            <div class="kpi-value" id="gaugeValue">$19k</div>
           </div>
         </div>
-      </div>
-      <!-- Display Element End -->
-      <!-- Remainder Overlay Mobile -->
-      <div class="remainder-wrapper">
-        <p class="hundreds">1</p>
-        <p class="tens">8</p>
-        <p class="ones">5</p>
-        <p class="units-left">GB LEFT</p>
-      </div>
-      <!-- Remainder Overlay Mobile End -->
-    </div>
-    <!-- Wrapper Around Both Elements End -->
-  </main>
-</body>
+
+
+        <section style="margin-bottom:30px; text-align:center; max-width:900px; margin-left:auto; margin-right:auto;">
+          <p style="font-size:1.05em; color:#444; line-height:1.6;">
+            The dashboard is structured to highlight top-level KPIs first, followed by 
+            detailed analytical breakdowns across therapeutic areas, patient enrollment, 
+            insurance segmentation, geographic distribution, and provider network coverage. 
+            This layered design allows executives to quickly assess overall performance 
+            while enabling analysts to drill into operational drivers and trend patterns.
+          </p>
+          <p style="font-size:1em; color:#555; line-height:1.6; margin-top:15px;">
+            By integrating forecast tracking, coverage analytics, and transaction-level 
+            reporting into a unified interface, the system reduces manual reporting effort, 
+            improves visibility across departments, and supports faster strategic decisions 
+            in both commercial and healthcare environments.
+          </p>
+        </section>
+
+        <div class="charts-grid">
+          <div class="chart-card treatment">
+            <h2 class="chart-title">Monthly Enrollment Trend</h2>
+            <p class="chart-description">Patient enrollment growth over 12 months</p>
+            <canvas id="enrollmentTrendChart"></canvas>
+          </div>
+          <div class="chart-card vitals">
+            <h2 class="chart-title">Therapeutic Area Coverage</h2>
+            <p class="chart-description">Coverage status across therapeutic categories</p>
+            <canvas id="therapeuticChart"></canvas>
+          </div>
+          <div class="chart-card medication">
+            <h2 class="chart-title">Patient Enrollment by Indication</h2>
+            <p class="chart-description">Number of enrolled patients grouped by medical indication</p>
+            <canvas id="enrollmentChart"></canvas>
+          </div>
+          <div class="chart-card lab-results" style="display: none;">
+            <h2 class="chart-title">Provider Network Coverage</h2>
+            <p class="chart-description">Coverage percentage by provider type</p>
+            <canvas id="providerChart"></canvas>
+          </div>
+          <div class="chart-card immunization" style="display: none;">
+            <h2 class="chart-title">Insurance Coverage Status</h2>
+            <p class="chart-description">Patient population split by coverage type</p>
+            <canvas id="insuranceChart"></canvas>
+          </div>
+          <div class="chart-card demographics" style="display: none;">
+            <h2 class="chart-title">Geographic Coverage Distribution</h2>
+            <p class="chart-description">Coverage percentage by region/territory</p>
+            <canvas id="geoChart"></canvas>
+          </div>
+          <div class="chart-card treatment" style="display: none;">
+            <h2 class="chart-title">Coverage by Delivery Channel</h2>
+            <p class="chart-description">Current coverage percentage across distribution channels</p>
+            <canvas id="channelCoverageChart"></canvas>
+          </div>
+          <div class="chart-card vitals">
+            <h2 class="chart-title">Treatment Coverage by Indication</h2>
+            <p class="chart-description">Coverage percentage trends across different medical indications (Q1-Q4)</p>
+            <canvas id="coverageIndicationChart"></canvas>
+          </div>
+          <div class="chart-card table-card" style="grid-column: span 2;">
+            <h2 class="chart-title">Transactions</h2>
+            <div style="overflow:auto;max-height:300px;">
+              <table id="transactionsTable"></table>
+            </div>
+          </div>
+        </div>
+
+        <button id="refreshBtn" style="margin-bottom:20px;padding:10px 20px;">Refresh Data</button>
+
+      </td>
+    </tr>
+  </table>
+
+  <button class="back-button" id="backButton">
+    ← Back
+  </button>
+  <script>
+    document.getElementById("backButton").addEventListener("click", function () {
+      if (document.referrer && document.referrer.includes(window.location.origin)) {
+        window.history.back();
+      } 
+      else {
+        window.location.href = "index.html";
+      }
+    });
+  </script>
+
+  <script>
+    // Chart Color Palette
+    const colors = {
+      primary: '#C9A961',
+      secondary: '#2c2c2c',
+      red: '#8B6F6F',
+      blue: '#5B7C99',
+      green: '#6B8E7F',
+      orange: '#A68472',
+      purple: '#7B6B8E',
+      teal: '#6B8E8E'
+    };
+
+    // global chart instances
+    let coverageIndicationChart,
+        channelCoverageChart,
+        enrollmentChart,
+        geoChart,
+        insuranceChart,
+        providerChart,
+        therapeuticChart,
+        enrollmentTrendChart,
+        gaugeChart;
+
+    // mock database generator
+    function generateMockData() {
+      // generate random macro values and transactions
+      const kpis = {
+        totalRevenue: 10000 + Math.random() * 90000,
+        forecast: 50000 + Math.random() * 50000,
+        actual: 5000 + Math.random() * 45000
+      };
+
+      const products = ['Laptop','Tablet','Smartphone','Refrigerator','Washing machine','Oven','Table','Headphones'];
+      const people = ['John Doe','Jane Smith','Tom Jo'];
+      const statuses = ['Shipped','Delivered','Canceled'];
+
+      const transactions = Array.from({ length: 10 }, (_, i) => {
+        return {
+          Order_ID: 1001 + i,
+          Order_Date: new Date(2024, Math.floor(Math.random() * 12), 10).toISOString(),
+          Product_Name: products[Math.floor(Math.random() * products.length)],
+          Product_Category: Math.random() < 0.5 ? 'Electronics' : 'Houseware',
+          Salesperson: people[Math.floor(Math.random() * people.length)],
+          Status: statuses[Math.floor(Math.random() * statuses.length)],
+          Unit_Price: '$' + (500 + Math.floor(Math.random() * 2500))
+        };
+      });
+
+      // generate random percentages or counts
+      return {
+        kpis,
+        transactions,
+        coverageIndication: {
+          labels: ['Hypertension', 'Diabetes', 'Cardiovascular', 'Respiratory'],
+          values: [
+            70 + Math.floor(Math.random() * 31),
+            70 + Math.floor(Math.random() * 31),
+            70 + Math.floor(Math.random() * 31),
+            70 + Math.floor(Math.random() * 31)
+          ]
+        },
+
+        channelCoverage: {
+          labels: ['Hospital Network', 'Primary Care', 'Specialty Clinics', 'Urgent Care', 'Telemedicine'],
+          values: [
+            60 + Math.floor(Math.random() * 41),
+            60 + Math.floor(Math.random() * 41),
+            60 + Math.floor(Math.random() * 41),
+            60 + Math.floor(Math.random() * 41),
+            60 + Math.floor(Math.random() * 41)
+          ]
+        },
+        enrollment: {
+          labels: ['Type 2 Diabetes', 'Essential Hypertension', 'COPD', 'Heart Failure', 'Asthma', 'Obesity'],
+          values: Array.from({ length: 6 }, () => 1500 + Math.floor(Math.random() * 3500))
+        },
+        geo: {
+          labels: ['Northeast Region', 'Southeast Region', 'Midwest Region', 'Southwest Region', 'West Coast'],
+          values: [
+            20 + Math.floor(Math.random() * 21),
+            20 + Math.floor(Math.random() * 21),
+            15 + Math.floor(Math.random() * 21),
+            15 + Math.floor(Math.random() * 21),
+            10 + Math.floor(Math.random() * 21)
+          ]
+        },
+        insurance: {
+          labels: ['Fully Covered', 'Partially Covered', 'Prior Auth Required', 'Not Covered'],
+          values: [
+            3000 + Math.floor(Math.random() * 2000),
+            1500 + Math.floor(Math.random() * 1500),
+            1000 + Math.floor(Math.random() * 1000),
+            500 + Math.floor(Math.random() * 500)
+          ]
+        },
+        provider: {
+          labels: ['In-Network Providers', 'Preferred Network', 'Out-of-Network', 'Emergency Network'],
+          coverageValues: [
+            70 + Math.floor(Math.random() * 31),
+            60 + Math.floor(Math.random() * 41),
+            20 + Math.floor(Math.random() * 41),
+            80 + Math.floor(Math.random() * 21)
+          ],
+          populationValues: [
+            60 + Math.floor(Math.random() * 41),
+            50 + Math.floor(Math.random() * 41),
+            20 + Math.floor(Math.random() * 21),
+            70 + Math.floor(Math.random() * 31)
+          ]
+        },
+        therapeutic: {
+          labels: ['Oncology', 'Cardiology', 'Endocrinology', 'Pulmonology', 'Rheumatology', 'Neurology'],
+          values: Array.from({ length: 6 }, () => 60 + Math.floor(Math.random() * 41))
+        },
+        enrollmentTrend: {
+          labels: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+          values: Array.from({ length: 12 }, () => 200 + Math.floor(Math.random() * 1000))
+        }
+      };
+    }
+
+    // reusable chart helper
+    function makeChart(existing, ctx, config) {
+      if (existing) {
+        existing.config.data = config.data;
+        existing.update();
+        return existing;
+      }
+      return new Chart(ctx, config);
+    }
+
+    function renderCharts(data) {
+      coverageIndicationChart = makeChart(
+        coverageIndicationChart,
+        document.getElementById('coverageIndicationChart').getContext('2d'),
+        {
+          type: 'doughnut',
+          data: {
+            labels: data.coverageIndication.labels,
+            datasets: [{
+              data: data.coverageIndication.values,
+              backgroundColor: [colors.red, colors.blue, colors.green, colors.orange],
+              borderColor: '#fff',
+              borderWidth: 2
+            }]
+          },
+          options: {
+            responsive: true,
+            circumference: 180,
+            rotation: 270,
+            plugins: { legend: { position: 'bottom' } }
+          }
+        }
+      );
+
+      channelCoverageChart = makeChart(
+        channelCoverageChart,
+        document.getElementById('channelCoverageChart').getContext('2d'),
+        {
+          type: 'bar',
+          data: {
+            labels: data.channelCoverage.labels,
+            datasets: [{
+              label: 'Coverage (%)',
+              data: data.channelCoverage.values,
+              backgroundColor: [colors.red, colors.green, colors.blue, colors.orange, colors.purple],
+              borderRadius: 8,
+              borderSkipped: false
+            }]
+          },
+          options: {
+            responsive: true,
+            indexAxis: 'y',
+            plugins: { legend: { display: false } },
+            scales: { x: { beginAtZero: true, max: 100 } }
+          }
+        }
+      );
+
+      enrollmentChart = makeChart(
+        enrollmentChart,
+        document.getElementById('enrollmentChart').getContext('2d'),
+        {
+          type: 'bar',
+          data: {
+            labels: data.enrollment.labels,
+            datasets: [{
+              label: 'Enrolled Patients',
+              data: data.enrollment.values,
+              backgroundColor: [colors.red, colors.blue, colors.green, colors.orange, colors.purple, colors.teal],
+              borderRadius: 6
+            }]
+          },
+          options: { responsive: true, indexAxis: 'y', plugins: { legend: { display: false } } }
+        }
+      );
+
+      geoChart = makeChart(
+        geoChart,
+        document.getElementById('geoChart').getContext('2d'),
+        {
+          type: 'pie',
+          data: {
+            labels: data.geo.labels,
+            datasets: [{
+              data: data.geo.values,
+              backgroundColor: [colors.red, colors.blue, colors.green, colors.orange, colors.purple],
+              borderColor: '#fff',
+              borderWidth: 2
+            }]
+          },
+          options: { responsive: true, plugins: { legend: { position: 'bottom' } } }
+        }
+      );
+
+      insuranceChart = makeChart(
+        insuranceChart,
+        document.getElementById('insuranceChart').getContext('2d'),
+        {
+          type: 'doughnut',
+          data: {
+            labels: data.insurance.labels,
+            datasets: [{
+              data: data.insurance.values,
+              backgroundColor: [colors.green, colors.orange, colors.red, '#95a5a6'],
+              borderColor: '#fff',
+              borderWidth: 2
+            }]
+          },
+          options: { responsive: true, plugins: { legend: { position: 'bottom' } } }
+        }
+      );
+
+      providerChart = makeChart(
+        providerChart,
+        document.getElementById('providerChart').getContext('2d'),
+        {
+          type: 'bar',
+          data: {
+            labels: data.provider.labels,
+            datasets: [
+              {
+                label: 'Coverage %',
+                data: data.provider.coverageValues,
+                backgroundColor: colors.blue,
+                borderRadius: 6
+              },
+              {
+                label: 'Patient Population %',
+                data: data.provider.populationValues,
+                backgroundColor: 'rgba(52, 152, 219, 0.5)',
+                borderRadius: 6
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            plugins: { legend: { position: 'bottom' } },
+            scales: { y: { beginAtZero: true, max: 100 } }
+          }
+        }
+      );
+
+      therapeuticChart = makeChart(
+        therapeuticChart,
+        document.getElementById('therapeuticChart').getContext('2d'),
+        {
+          type: 'radar',
+          data: {
+            labels: data.therapeutic.labels,
+            datasets: [{
+              label: 'Coverage (%)',
+              data: data.therapeutic.values,
+              borderColor: colors.primary,
+              backgroundColor: 'rgba(102, 126, 234, 0.2)',
+              borderWidth: 2,
+              pointBackgroundColor: colors.primary,
+              pointBorderColor: '#fff',
+              pointBorderWidth: 2,
+              pointRadius: 5
+            }]
+          },
+          options: { responsive: true, plugins: { legend: { position: 'bottom' } }, scales: { r: { beginAtZero: true, max: 100 } } }
+        }
+      );
+
+      enrollmentTrendChart = makeChart(
+        enrollmentTrendChart,
+        document.getElementById('enrollmentTrendChart').getContext('2d'),
+        {
+          type: 'line',
+          data: {
+            labels: data.enrollmentTrend.labels,
+            datasets: [{
+              label: 'Monthly Enrollments',
+              data: data.enrollmentTrend.values,
+              borderColor: colors.green,
+              backgroundColor: 'rgba(46, 204, 113, 0.2)',
+              borderWidth: 3,
+              fill: true,
+              tension: 0.4,
+              pointBackgroundolor: colors.green,
+              pointBorderColor: '#fff',
+              pointBorderWidth: 2,
+              pointRadius: 5
+            }]
+          },
+          options: { responsive: true, plugins: { legend: { position: 'bottom' } }, scales: { y: { beginAtZero: true } } }
+        }
+      );
+
+      // gauge card
+      gaugeChart = makeChart(
+        gaugeChart,
+        document.getElementById('gaugeChart').getContext('2d'),
+        {
+          type: 'doughnut',
+          data: {
+            labels: ['Actual','Remaining'],
+            datasets: [{
+              data: [data.kpis.actual, Math.max(0,data.kpis.forecast - data.kpis.actual)],
+              backgroundColor: [colors.blue, '#eee'],
+              borderWidth: 0
+            }]
+          },
+          options: {
+            responsive: true,
+            circumference: 180,
+            rotation: 270,
+            cutout: '70%',
+            plugins: { legend: { display: false } }
+          }
+        }
+      );
+
+      // update KPI values
+      document.getElementById('gaugeValue').textContent = '$' + Math.round(data.kpis.actual);
+      document.getElementById('totalRevenue').textContent = '$' + (Math.round(data.kpis.totalRevenue / 100) / 10) + 'k';
+      document.getElementById('forecastAmount').textContent = '$' + (Math.round(data.kpis.forecast / 100) / 10) + 'k';
+    }
+
+    async function loadData() {
+      const data = generateMockData();
+      renderCharts(data);
+      renderTransactions(data.transactions);
+    }
+
+
+
+    function renderTransactions(transactions) {
+      const table = document.getElementById('transactionsTable');
+      table.innerHTML = '';
+      if (!transactions || !transactions.length) return;
+      const cols = Object.keys(transactions[0]);
+      const thead = table.createTHead();
+      const headerRow = thead.insertRow();
+      cols.forEach(c => {
+        const th = document.createElement('th');
+        th.textContent = c.replace(/_/g, ' ');
+        headerRow.appendChild(th);
+      });
+      const tbody = table.createTBody();
+      transactions.forEach(tx => {
+        const tr = tbody.insertRow();
+        cols.forEach(c => {
+          const td = tr.insertCell();
+          td.textContent = tx[c];
+        });
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('refreshBtn').addEventListener('click', loadData);
+      loadData();
+    });
+  </script>
 </html>
