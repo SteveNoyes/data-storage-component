@@ -1,0 +1,25 @@
+month,revenue,forecast,actual,enrollments,therapeutic_area,indication,region,insurance_type,provider_type,delivery_channel,coverage_pct,enrolled_patients,patient_pop_pct,order_id,product_name,product_category,salesperson,status,unit_price,order_date
+2024-01,18500,79100,19000,320,Oncology,Breast Cancer,Northeast,Fully Covered,In-Network,Hospital Network,85,1200,65,1001,Laptop,Electronics,Jane Smith,Shipped,1200,2024-01-10
+2024-01,18500,79100,19000,320,Cardiology,Heart Failure,Southeast,Partially Covered,Preferred Network,Primary Care,72,980,58,1002,Tablet,Electronics,John Doe,Delivered,800,2024-01-15
+2024-02,21200,79100,21500,380,Endocrinology,Type 2 Diabetes,Midwest,Fully Covered,In-Network,Specialty Clinics,88,1450,70,1003,Smartphone,Electronics,Tom Jo,Shipped,950,2024-02-05
+2024-02,21200,79100,21500,380,Pulmonology,COPD,Southwest,Prior Auth Required,Out-of-Network,Telemedicine,65,820,45,1004,Refrigerator,Houseware,Jane Smith,Canceled,2100,2024-02-18
+2024-03,19800,79100,20100,350,Oncology,Lung Cancer,Northeast,Fully Covered,In-Network,Hospital Network,90,1350,72,1005,Washing Machine,Houseware,John Doe,Shipped,1500,2024-03-08
+2024-03,19800,79100,20100,350,Neurology,Alzheimer's,Southeast,Partially Covered,Preferred Network,Primary Care,70,750,48,1006,Oven,Houseware,Tom Jo,Delivered,1100,2024-03-22
+2024-04,23400,79100,24000,410,Cardiology,Atrial Fibrillation,Midwest,Fully Covered,In-Network,Specialty Clinics,92,1520,75,1007,Table,Furniture,Jane Smith,Shipped,450,2024-04-12
+2024-04,23400,79100,24000,410,Endocrinology,Hypothyroidism,Southwest,Partially Covered,Preferred Network,Telemedicine,78,890,52,1008,Headphones,Electronics,John Doe,Delivered,280,2024-04-25
+2024-05,25100,79100,25800,440,Rheumatology,Rheumatoid Arthritis,Northeast,Fully Covered,In-Network,Hospital Network,87,1100,62,1009,Laptop,Electronics,Tom Jo,Shipped,1200,2024-05-03
+2024-05,25100,79100,25800,440,Oncology,Colon Cancer,Southeast,Prior Auth Required,Out-of-Network,Urgent Care,60,680,40,1010,Tablet,Electronics,Jane Smith,Canceled,800,2024-05-17
+2024-06,22800,79100,23200,390,Pulmonology,Asthma,Midwest,Fully Covered,In-Network,Primary Care,94,1680,78,1011,Smartphone,Electronics,John Doe,Shipped,950,2024-06-09
+2024-06,22800,79100,23200,390,Neurology,Multiple Sclerosis,Southwest,Partially Covered,Preferred Network,Specialty Clinics,75,920,55,1012,Refrigerator,Houseware,Tom Jo,Delivered,2100,2024-06-21
+2024-07,26500,79100,27100,460,Cardiology,Coronary Artery Disease,Northeast,Fully Covered,In-Network,Hospital Network,89,1380,68,1013,Washing Machine,Houseware,Jane Smith,Shipped,1500,2024-07-07
+2024-07,26500,79100,27100,460,Endocrinology,Type 1 Diabetes,Southeast,Fully Covered,In-Network,Telemedicine,91,1240,66,1014,Oven,Houseware,John Doe,Delivered,1100,2024-07-19
+2024-08,24200,79100,24800,420,Oncology,Prostate Cancer,Midwest,Prior Auth Required,Out-of-Network,Urgent Care,58,640,38,1015,Table,Furniture,Tom Jo,Canceled,450,2024-08-04
+2024-08,24200,79100,24800,420,Rheumatology,Lupus,Southwest,Fully Covered,In-Network,Primary Care,86,1050,60,1016,Headphones,Electronics,Jane Smith,Shipped,280,2024-08-16
+2024-09,27800,79100,28500,480,Pulmonology,Pulmonary Fibrosis,Northeast,Partially Covered,Preferred Network,Specialty Clinics,73,870,50,1017,Laptop,Electronics,John Doe,Delivered,1200,2024-09-11
+2024-09,27800,79100,28500,480,Neurology,Epilepsy,Southeast,Fully Covered,In-Network,Hospital Network,93,1410,73,1018,Tablet,Electronics,Tom Jo,Shipped,800,2024-09-23
+2024-10,29100,79100,29800,510,Cardiology,Hypertension,Midwest,Fully Covered,In-Network,Primary Care,96,1720,80,1019,Smartphone,Electronics,Jane Smith,Shipped,950,2024-10-06
+2024-10,29100,79100,29800,510,Oncology,Leukemia,Southwest,Fully Covered,In-Network,Telemedicine,88,1300,67,1020,Refrigerator,Houseware,John Doe,Delivered,2100,2024-10-18
+2024-11,26800,79100,27400,450,Endocrinology,Obesity,Northeast,Prior Auth Required,Out-of-Network,Urgent Care,62,710,42,1021,Washing Machine,Houseware,Tom Jo,Canceled,1500,2024-11-02
+2024-11,26800,79100,27400,450,Rheumatology,Psoriatic Arthritis,Southeast,Fully Covered,In-Network,Specialty Clinics,84,1080,59,1022,Oven,Houseware,Jane Smith,Shipped,1100,2024-11-14
+2024-12,30500,79100,31200,530,Pulmonology,Pneumonia,Midwest,Fully Covered,In-Network,Hospital Network,95,1650,76,1023,Table,Furniture,John Doe,Delivered,450,2024-12-08
+2024-12,30500,79100,31200,530,Neurology,Parkinson's,Southwest,Partially Covered,Preferred Network,Telemedicine,76,940,53,1024,Headphones,Electronics,Tom Jo,Shipped,280,2024-12-20
