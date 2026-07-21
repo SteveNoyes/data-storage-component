@@ -1,6 +1,4 @@
-# Sales & Market Access Performance Dashboard
-
-A mid-level React dashboard for tracking revenue performance, enrollment growth, therapeutic coverage, and distribution channel effectiveness.
+# Performance Dashboard
 
 ## Tech Stack
 
@@ -222,18 +220,6 @@ npm run dev       # Development server with HMR at localhost:5173
 npm run build     # Production build to dist/
 npm run preview   # Preview production build locally
 ```
-
-## Design Decisions
-
-- **React over Vanilla JS** — Better suited for mid-to-senior role demos. Component model, hooks, and Context API showcase modern patterns. Job market alignment is stronger with React.
-
-- **CSV as data source** — No backend required. Simple to edit. Easy to swap for a real API later by replacing `csvService.js` with a fetch-based service that returns the same shape. Demonstrates separation of concerns.
-
-- **No Tailwind** — CSS Modules + custom properties keep dependencies minimal and show proficiency with plain CSS. Easier to control the branded look. Tailwind can be added later if desired.
-
-- **Feature-first file structure** — Chart components live in `src/charts/`, page layouts in `src/pages/`, shared UI in `src/components/`. Related code stays together. This scales well to 10+ pages.
-
-- **Context + useReducer instead of Redux/Zustand** — Appropriate for a single-dashboard app. Avoids unnecessary dependencies. Demonstrates understanding of React built-in state management.
 
 ## Future Enhancements
 
